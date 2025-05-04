@@ -1,138 +1,95 @@
-// import React, { useState } from 'react'
-// import axios from 'axios';
-// // import { useNavigate } from 'react-router-dom';
-
-
-// function Booksdetails() {
-//   const [books,setBooks]=useState([])
-// //   const navigate=useNavigate()
-
-//   const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-//     console.log(token);
-    
-//     if (token) {
-//       axios.get('http://localhost:3013/books', {
-//         headers: {
-//           'Authorization': `Bearer ${token}` // Include the token in the Authorization header
-//         }
-//       })
-//         .then(res => {
-//           setBooks(res.data);
-//         })
-//         .catch(err => {
-//           console.log('Error fetching customer data:', err);
-//         });
-//     } else {
-//       console.log("No token found.");
-//     };
-
-// //   function edit(id){
-// //     navigate(`/update/${id}`)
-    
-// //   }
-// //   async function dele(id) {
-// //   try {
-// //     await axios.delete(`http://localhost:3013/delete/${id}`);
-// //     setStudent(prevState => prevState.filter(student => student.id !== id));
-// //   } catch (err) {
-// //     console.error("Error deleting student:", err);
-// //   }
-// // }
-
-//   return (
-//     <div>
-//         <h1>hi iam  book section </h1>
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>Title</th>
-//               <th>rented_books	</th>
-//               <th>rented_to	</th>
-//               <th>remaining_books</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {books.map((book)=>
-//               <tr key={book.title}>
-//                 <td>{book.title}</td>
-//                 <td>{book.Rentedbooks}</td>
-//                 <td>{book.rented_to}</td>
-//                 <td>{book.remaining_books}</td>
-//               </tr>
-
-//             )}
-//           </tbody>
-//         </table>
-
-//     </div>
-//   )
-// }
-
-// export default Booksdetails
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Booksdetails() {
-  const [books, setBooks] = useState([]);
-  const token = localStorage.getItem('token'); 
+  const [books, setBooks] = useState({ data: [], totalPages: 1, totalItems: 0 });
+  const [page, setPage] = useState(1);
+  const limit = 7;
+
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (token) {
-      axios.get('http://localhost:3013/books', {
-        headers: {
-          'Authorization': `Bearer ${token}` 
-        }
-      })
-      .then(res => {
-        setBooks(res.data); 
-      })
-      .catch(err => {
+    if (!token) return;
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3014/rentaldetails?page=${page}&limit=${limit}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        // Ensure fallback structure if API doesn't return expected fields
+        const { data = [], totalPages = 1, totalItems = 0 } = res.data;
+        setBooks({ data, totalPages, totalItems });
+      } catch (err) {
         console.error('Error fetching books:', err);
-      });
-    } 
-  }, [token]);
+        setBooks({ data: [], totalPages: 1, totalItems: 0 }); // prevent undefined on error
+      }
+    };
+
+    fetchData();
+  }, [token, page]);
 
   return (
-    <div>
-      <h1>Books Section</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Rented To</th>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-5xl">
+        <h1 className="text-3xl font-bold text-center text-purple-600 mb-6">Rental Details <span className='text-4xl'>👨‍🎓📕</span></h1>
 
-            <th>total books</th>
-            <th>Rented Books</th>
-            <th>Remaining Books</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((book) => (
-            <tr key={book.title}>
-              <td>{book.title}</td>
-              <td>{book.rented_to}</td>
-
-              <td>{book.number}</td>
-              <td>{book.rentedbooks}</td>
-              <td>{book.remaining_books}</td>
+        <table className="w-full border text-center">
+          <thead>
+            <tr className="bg-purple-600 text-white">
+              <th className="p-3">Title</th>
+              <th className="p-3">Rented To</th>
+              <th className="p-3">Total Books</th>
+              <th className="p-3">Rented Books</th>
+              <th className="p-3">Remaining Books</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {books.data.length > 0 ? (
+              books.data.map((book, index) => (
+                <tr key={index} className="hover:bg-gray-50 border-b">
+                  <td className="p-3">{book.title}</td>
+                  <td className="p-3">{book.rented_to || 'None'}</td>
+                  <td className="p-3">{book.quantity}</td>
+                  <td className="p-3">{book.rentedbooks}</td>
+                  <td className="p-3">{book.remaining_books}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="p-4 text-gray-500">
+                  No rental records found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+        {/* Pagination */}
+        <div className="flex justify-center gap-2 items-center mt-6   ">
+          <button
+            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="bg-gray-600 text-white px-2 py-1 rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+
+          <span className="text-sm  font-sans">
+            Page {page} of {books.totalPages}
+          </span>
+
+          <button
+            onClick={() => setPage(prev => Math.min(prev + 1, books.totalPages))}
+            disabled={page >= books.totalPages}
+            className="bg-gray-500 text-white px-2 py-1 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
