@@ -8,7 +8,9 @@ function Singlecustomer() {
   const { name } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3014/singlecustomer/${name}`)
+    // axios.get(`http://localhost:3014/singlecustomer/${name}`)
+    axios.get(`https://backend-6-1co4.onrender.com/singlecustomer/${name}`)
+
       .then(res => {
         setCustomer(res.data); 
       })

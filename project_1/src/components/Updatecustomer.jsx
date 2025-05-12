@@ -35,12 +35,14 @@ function Updatecustomer() {
     e.preventDefault(); 
     console.log(name);
     alert("updated customer details")
-    axios.put(`http://localhost:3014/updatecustomer/${id}`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(res => {
+    // axios.put(`http://localhost:3014/updatecustomer/${id}`, data, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    axios.put(`https://backend-6-1co4.onrender.com/updatecustomer/${id}`, data, { headers: { 'Content-Type': 'application/json',
+ } })
+.then(res => {
       console.log(res.data, "hi saba");
     })
     .catch(err => console.log(err));

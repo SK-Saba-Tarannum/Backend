@@ -7,7 +7,9 @@ function Dashboard() {
     const [student,setStudent]=useState([])
     const navigate=useNavigate()
 
-    axios.get('http://localhost:3013/allbooks')
+    // axios.get('http://localhost:3013/allbooks')
+    axios.get('https://backend-6-1co4.onrender.com/allbooks')
+
         .then(res => {
           setStudent(res.data);
         })

@@ -10,7 +10,9 @@ function Getcustomers() {
     // console.log(token);
     
     if (token) {
-      axios.get('http://localhost:3014/allcustomer', {
+      // axios.get('http://localhost:3014/allcustomer', {
+      axios.get('https://backend-6-1co4.onrender.com/allcustomer',{
+
         headers: {
           'Authorization': `Bearer ${token}` 
         }
@@ -28,7 +30,9 @@ function Getcustomers() {
         navigate(`/updatecustomer/${id}`)
     }
     function dele(id){
-      axios.delete(`http://localhost:3014/deletecustomer/${id}`, {
+      // axios.delete(`http://localhost:3014/deletecustomer/${id}`, {
+      axios.delete(`https://backend-6-1co4.onrender.com/deletecustomer/${id}`,{
+
         headers: {
           'Authorization': `Bearer ${token}` 
         }

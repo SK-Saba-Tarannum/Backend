@@ -21,8 +21,9 @@ function Register() {
     e.preventDefault();
     console.log(name, email, password, role);
 
-    axios
-      .post('http://localhost:3014/register', data, {
+    // axios.post('http://localhost:3014/register', data, {
+    axios.post('https://backend-6-1co4.onrender.com/register', data,{
+
         headers: {
           'Content-Type': 'application/json',
         },
