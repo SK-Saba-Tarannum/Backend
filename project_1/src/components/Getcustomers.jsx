@@ -7,7 +7,7 @@ function Getcustomers() {
   const navigate=useNavigate();
 
   const token = localStorage.getItem('token'); 
-    console.log(token);
+    // console.log(token);
     
     if (token) {
       axios.get('http://localhost:3014/allcustomer', {

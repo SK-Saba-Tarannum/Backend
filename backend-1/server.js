@@ -1,11 +1,14 @@
+require('dotenv').config();
 const { Client } = require('pg');
+
 const cors = require('cors');  
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const PORT = 3014;
 const session = require('express-session'); 
-const JWT_SECRET = "lalala123lalala123lalala123lalala123lalala123";
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 const app = express();
 app.use(cors());
@@ -18,13 +21,20 @@ app.use(session({
 
 app.use(express.json());
 
+// const client = new Client({
+//     user: 'postgres',
+//     host: 'localhost',
+//     database: 'postgres',
+//     password: 'saba@123',
+//     port: 5432
+// });
 const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'saba@123',
-    port: 5432
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
+
 client.connect();
 
 const registration = `
@@ -143,7 +153,7 @@ app.post('/login', async (req, res) => {
 
       const token = jwt.sign(
         { id: user.id,name:user.name, email: user.email, role: user.role },
-        JWT_SECRET,
+        process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
       return res.status(200).json({ result: user, token });

@@ -39,7 +39,7 @@ function Login() {
 
       localStorage.setItem('token', token); 
 
-      console.log("Token before decoding:", token);
+      // console.log("Token before decoding:", token);
 
       const decoded = jwtDecode(token);
       console.log(decoded)     
