@@ -10,29 +10,36 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const data = {
-    name: name,
-    email: email,
-    role: role,
-    password: password
-  };
-
+  
+  
   function submithandler(e) {
     e.preventDefault();
-    console.log(name, email, password, role);
-
-    // axios.post('http://localhost:3014/register', data, {
-    axios.post('https://backend-6-1co4.onrender.com/register', data,{
-
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));  
+  
+    const data = {
+      name,
+      email,
+      password,
+      role
+    };
+  
+    console.log('Submitting:', data);
+  
+    axios.post('http://localhost:3014/register', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      console.log('Registered successfully:', res.data);
+      alert('Registered successfully');
+      navigate('/');
+    })
+    .catch((err) => {
+      console.error('Registration error:', err.response?.data || err.message);
+      alert('Registration failed');
+    });
   }
+
 
   function navi() {
     alert("register succesfully")
@@ -107,15 +114,12 @@ function Register() {
           </div>
                     <div className="mb-2">
             <button
-              onClick={()=>{navigate('/')}}
+              // onClick={()=>{navigate('/')}}
               className="w-full py-1 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Login
             </button>
           </div>
-          
-
-           
         </form>
 
       </div>

@@ -8,8 +8,8 @@ function Customer() {
     console.log(token);
     
     if (token) {
-      // axios.get('http://localhost:3014/customer', {
-      axios.get('https://backend-6-1co4.onrender.com/customer',{
+      axios.get('http://localhost:3014/customer', {
+      // axios.get('https://backend-6-1co4.onrender.com/customer',{
         headers: {
           'Authorization': `Bearer ${token}` 
         }

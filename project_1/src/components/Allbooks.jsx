@@ -27,7 +27,7 @@ function Allbooks() {
 
   function dele(id) {
     // axios.delete(`http://localhost:3014/deletebook/${id}`)
-    axios.delete(`http://localhost:3014/deletebook/${id}`)
+    axios.delete(`http://backend-6-1co4.onrender.com/deletebook/${id}`)
       .then(() => {
         setBooks(prev => prev.filter(book => book.id !== id));
       })

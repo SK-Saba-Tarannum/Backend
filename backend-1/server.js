@@ -28,14 +28,15 @@ app.use(express.json());
 //     password: 'saba@123',
 //     port: 5432
 // });
+
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
 });
-
 client.connect();
+// console.log(process.env.DATABASE_URL)
 
 const registration = `
     CREATE TABLE IF NOT EXISTS register (
