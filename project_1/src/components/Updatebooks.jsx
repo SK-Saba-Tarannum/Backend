@@ -28,8 +28,8 @@ function Updatebooks() {
   function submithandler(e){
     e.preventDefault(); 
     console.log(name)
-    // axios.put(`http://localhost:3013/updatebooks/${id}`,data,{headers: {
-    axios.put(`https://backend-6-1co4.onrender.com/updatebooks/${id}`, data,{headers:{
+    axios.put(`http://localhost:3013/updatebooks/${id}`,data,{headers: {
+    // axios.put(`https://backend-6-1co4.onrender.com/updatebooks/${id}`, data,{headers:{
           'Content-Type': 'application/json',
         }}
     )
