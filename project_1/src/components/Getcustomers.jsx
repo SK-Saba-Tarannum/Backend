@@ -10,7 +10,7 @@ function Getcustomers() {
     // console.log(token);
     
     if (token) {
-      axios.get('http://localhost:3014/allcustomer', {
+      axios.get('https://backend-10-r95y.onrender.com/allcustomer', {
       // axios.get('https://backend-6-1co4.onrender.com/allcustomer',{
 
         headers: {

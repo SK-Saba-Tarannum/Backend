@@ -11,7 +11,7 @@ function Admin() {
     console.log(token);
     
     if (token) {
-      axios.get('http://localhost:3013/admin', {
+      axios.get('https://backend-10-r95y.onrender.com/admin', {
         headers: {
           'Authorization': `Bearer ${token}` 
         }
@@ -36,7 +36,7 @@ function Admin() {
   
   async function dele(id) {
   try {
-    await axios.delete(`http://localhost:3013/delete/${id}`);
+    await axios.delete(`https://backend-10-r95y.onrender.com/delete/${id}`);
     setStudent(prevState => prevState.filter(student => student.id !== id));
   } catch (err) {
     console.error("Error deleting student:", err);
