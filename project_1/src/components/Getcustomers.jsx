@@ -30,7 +30,7 @@ function Getcustomers() {
         navigate(`/updatecustomer/${id}`)
     }
     function dele(id){
-      axios.delete(`http://localhost:3014/deletecustomer/${id}`, {
+      axios.delete(`https://backend-10-r95y.onrender.com/deletecustomer/${id}`, {
       // axios.delete(`https://backend-6-1co4.onrender.com/deletecustomer/${id}`,{
 
         headers: {

@@ -40,7 +40,7 @@ function Updatecustomer() {
     //     'Content-Type': 'application/json',
     //   },
     // })
-    axios.put(`https://localhost:3014/updatecustomer/${id}`, data, { headers: { 'Content-Type': 'application/json',
+    axios.put(`https://backend-10-r95y.onrender.com/updatecustomer/${id}`, data, { headers: { 'Content-Type': 'application/json',
  } })
 .then(res => {
       console.log(res.data, "hi saba");

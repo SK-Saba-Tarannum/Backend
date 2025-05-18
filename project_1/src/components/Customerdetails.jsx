@@ -34,7 +34,7 @@ function Customerdetails() {
       return;
     }
 
-    axios.post('http://localhost:3014/newcustomer', data, {
+    axios.post('https://backend-10-r95y.onrender.com/newcustomer', data, {
     // axios.post('https://backend-6-1co4.onrender.com/newcustomer', data,{
 
       headers: {

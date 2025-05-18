@@ -15,7 +15,7 @@ function Booksdetails() {
       try {
         // const res = await axios.get(`https://backend-6-1co4.onrender.com/rentaldetails?page=${page}&limit=${limit}`,{
 
-        const res = await axios.get(`http://localhost:3014/rentaldetails?page=${page}&limit=${limit}`, {
+        const res = await axios.get(`https://backend-10-r95y.onrender.com/rentaldetails?page=${page}&limit=${limit}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

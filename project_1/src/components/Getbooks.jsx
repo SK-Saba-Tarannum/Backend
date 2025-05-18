@@ -11,7 +11,7 @@ function Getbooks() {
   useEffect(() => {
     // axios.get(`https://backend-6-1co4.onrender.com/allbooks?page=${page}&limit=8`)
 
-    axios.get(`http://localhost:3014/allbooks?page=${page}&limit=8`)
+    axios.get(`https://backend-10-r95y.onrender.com/allbooks?page=${page}&limit=8`)
       .then(res => {
         setBooks(res.data.data || []); // Safe fallback
         setTotalPages(res.data.totalPages || 1);
@@ -27,7 +27,7 @@ function Getbooks() {
   }
 
   function dele(id) {
-    axios.delete(`http://localhost:3014/deletebook/${id}`)
+    axios.delete(`https://backend-10-r95y.onrender.com/deletebook/${id}`)
       .then(() => {
         setBooks(prev => prev.filter(book => book.id !== id));
       })

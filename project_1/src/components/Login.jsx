@@ -22,7 +22,7 @@ function Login() {
     e.preventDefault();
     console.log(data)
 
-    axios.post('http://localhost:3014/login', data, {
+    axios.post('https://backend-10-r95y.onrender.com/login', data, {
     // axios.post('https://backend-6-1co4.onrender.com/login', data,{
 
       headers: {

@@ -24,7 +24,7 @@ function Register() {
   
     console.log('Submitting:', data);
   
-    axios.post('http://localhost:3014/register', data, {
+    axios.post('https://backend-10-r95y.onrender.com/register', data, {
       headers: {
         'Content-Type': 'application/json',
       },
